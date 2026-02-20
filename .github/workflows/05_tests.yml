@@ -1,0 +1,21 @@
+name: Tests (Python)
+on:
+  push:
+    branches:
+      - main
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Configurar Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+      
+      - name: Instalar dependencias
+        run: pip install -r localrepo/config/requirements.txt
+      
+      - name: Ejecutar tests
+        run: pytest localrepo/tests/test_operations.py
