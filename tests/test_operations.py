@@ -1,4 +1,4 @@
-from Operations import *
+from ..Operations import *
 
 def test_suma():
     assert sum(2, 2) == 4
