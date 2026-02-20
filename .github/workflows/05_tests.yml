@@ -22,7 +22,7 @@ jobs:
       
       - name: Ejecutar tests
         env:
-          WORKSPACE: ${{ GITHUB_WORKSPACE }}
+          WORKSPACE: ${{ github.workspace }}
         run: |
           export PYTHONPATH="$PYTHONPATH:$WORKSPACE/src"
           pytest tests/test_operations.py
