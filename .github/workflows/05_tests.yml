@@ -15,7 +15,7 @@ jobs:
           python-version: '3.x'
       
       - name: Instalar dependencias
-        run: pip install -r localrepo/config/requirements.txt
+        run: pip install -r config/requirements.txt
       
       - name: Ejecutar tests
-        run: pytest localrepo/tests/test_operations.py
+        run: pytest tests/test_operations.py
