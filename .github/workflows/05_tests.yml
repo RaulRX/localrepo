@@ -10,7 +10,7 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Show github repo
-        run: echo "La carpeta de trabajo es: $GITHUB_WORKSPACE"
+        run: echo "La carpeta de trabajo es $GITHUB_WORKSPACE"
       
       - name: Configurar Python
         uses: actions/setup-python@v4
