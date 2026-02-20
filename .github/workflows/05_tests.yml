@@ -7,10 +7,10 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
+
       - name: Show github repo
         run: echo "La carpeta de trabajo es: $GITHUB_WORKSPACE"
-      
-      - uses: actions/checkout@v3
       
       - name: Configurar Python
         uses: actions/setup-python@v4
