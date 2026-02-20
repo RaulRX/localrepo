@@ -1,3 +1,4 @@
+name: Saludo incial
 on:
   push:
     branches:
