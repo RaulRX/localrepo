@@ -7,6 +7,9 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
+      - name: Show github repo
+        run: echo "La carpeta de trabajo es: $GITHUB_WORKSPACE"
+      
       - uses: actions/checkout@v3
       
       - name: Configurar Python
@@ -18,4 +21,6 @@ jobs:
         run: pip install -r config/requirements.txt
       
       - name: Ejecutar tests
-        run: pytest tests/test_operations.py
+        run: |
+          export PYTHONPATH="$PYTHONPATH:${GITHUB_WORKSPACE}/src"
+          pytest tests/test_operations.py
