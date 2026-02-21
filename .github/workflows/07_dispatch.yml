@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
     inputs:
       nombre:
-        description: 'Raul Sánchez Serrano'
+        description: 'Indica tu nombre'
         required: true
         default: 'Raúl'
 jobs:
