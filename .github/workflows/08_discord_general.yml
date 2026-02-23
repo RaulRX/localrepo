@@ -6,7 +6,7 @@ on:
 
 jobs:
   show_push_data:
-    run-on: ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
       - name: print push data
         env:
