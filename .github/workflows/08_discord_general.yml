@@ -1,10 +1,7 @@
 name: Notificar Discord
 on:
   workflow_dispatch:
-    inputs:
-      message:
-        description: 'Mensaje que desea enviar'
-        required: true
+    description: Ejecución bajo demanda
 
 jobs:
   general_notification:
@@ -37,7 +34,7 @@ jobs:
             --arg date "$COMMIT_DATE" \
             '{content: "**Nuevo push por \($author)**\n**Mensaje:** \($message)\n**Fecha y hora del commit:** \($date)\n**Commit URL:** \($url)"}'
           )
-
+          echo "webhook ejecutado"
           curl -H "Content-Type: application/json" \
                -X POST \
                -d "$JSON" \
