@@ -21,7 +21,7 @@ jobs:
           echo "Fecha y hora del commit: $COMMIT_DATE"
   general_notification:
     runs-on: ubuntu-latest
-    need: show_push_data
+    needs: show_push_data
     steps:
       - name: Enviar mensaje a Discord - General 
         env:
