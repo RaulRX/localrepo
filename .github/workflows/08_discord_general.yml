@@ -1,13 +1,14 @@
 name: Notificar Discord
 on:
-  workflow_dispatch:
-    description: Ejecución bajo demanda
+  push:
+    branches:
+      - main
 
 jobs:
-  general_notification:
-    runs-on: ubuntu-latest
+  show_push_data:
+    run-on: ubuntu-latest
     steps:
-      - name: Mostrar datos github
+      - name: print push data
         env:
           COMMIT_AUTHOR: ${{ github.actor }}
           COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
@@ -18,7 +19,11 @@ jobs:
           echo "Mensaje en el commit: $COMMIT_MESSAGE"
           echo "Url del commit: $COMMIT_URL"
           echo "Fecha y hora del commit: $COMMIT_DATE"
-      - name: Enviar mensaje a Discord - General
+  general_notification:
+    runs-on: ubuntu-latest
+    need: show_push_data
+    steps:
+      - name: Enviar mensaje a Discord - General 
         env:
           WEBHOOK_URL: ${{ secrets.WEBHOOK_DISCORD_GENERAL }}
           COMMIT_AUTHOR: ${{ github.actor }}
