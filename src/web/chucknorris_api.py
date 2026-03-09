@@ -1,6 +1,5 @@
 import requests
 import json
-import asyncio
 
 
 class Chucknorris_jokes:
@@ -15,7 +14,7 @@ class Chucknorris_jokes:
         self.__common_headers = {"Content-Type":"application/json", "Accept":"application/json"}
     
     @classmethod
-    def get_categories(cls) -> list:
+    def get_categories(cls) -> str:
         response = requests.get(url=f"{cls._base_url}/categories", 
                                 timeout=cls._timeout,
                                 headers=cls._common_headers)
@@ -23,21 +22,21 @@ class Chucknorris_jokes:
         return json.dumps(response.json(), indent=3)
 
     @staticmethod
-    def get_categories_static() -> list:
+    def get_categories_static() -> str:
         response = requests.get(url=f"{Chucknorris_jokes._base_url}/categories", 
                                 timeout=Chucknorris_jokes._timeout,
                                 headers=Chucknorris_jokes._common_headers)
         
         return json.dumps(response.json(), indent=3)
 
-    def get_categories_instanced(self) -> list:
+    def get_categories_instanced(self) -> str:
         response = requests.get(url=f"{self.__base_url}/categories", 
                                 timeout=self.__timeout,
                                 headers=self.__common_headers)
         
         return json.dumps(response.json(), indent=3)
     
-    def get_category_by_name(self, name: str = None) -> str:
+    def get_category_by_name(self, name: str) -> str:
         if name is None or isinstance(name, str):
             raise ValueError("Must indicate a name as string")
         

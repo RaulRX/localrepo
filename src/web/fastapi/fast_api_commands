@@ -1,0 +1,21 @@
+--log-level [critical|error|warning|info|debug|trace]
+                                  Log level. [default: info]
+
+--host TEXT                     Bind socket to this host.  [default:        
+                                  127.0.0.1]
+--port INTEGER                  Bind socket to this port. If 0, an available
+                                  port will be picked.  [default: 8000] 
+--reload                        Enable auto-reload.
+--env-file PATH                 Environment configuration file.
+--log-config PATH               Logging configuration file. Supported
+                                formats: .ini, .json, .yaml.
+--ssl-keyfile TEXT              SSL key file
+--ssl-certfile TEXT             SSL certificate file
+--ssl-keyfile-password TEXT     SSL keyfile password
+--ssl-version INTEGER           SSL version to use (see stdlib ssl module's)
+                                [default: 17]
+--ssl-cert-reqs INTEGER         Whether client certificate is required (see
+                                stdlib ssl module's)  [default: 0]
+--ssl-ca-certs TEXT             CA certificates file
+--ssl-ciphers TEXT              Ciphers to use (see stdlib ssl module's)
+                                [default: TLSv1]
