@@ -2,10 +2,10 @@ from enum import Enum
 import configparser
 import os
 #Local env file purpose
-from dotenv import load_dotenv, dotenv_values
+#from dotenv import load_dotenv, dotenv_values
 
 #Local testing purposes
-load_dotenv()
+#load_dotenv()
 
 class Environment(Enum):
     LOCAL="local",
