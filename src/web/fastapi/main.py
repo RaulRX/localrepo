@@ -1,26 +1,64 @@
-from fastapi import FastAPI, params
+from fastapi import FastAPI, APIRouter
 from requests.Greeting_request import Greeting_request
+from typing import Optional
 
-app = FastAPI()
+router = APIRouter(prefix="/api/v1")
 
-@app.get("/greeting/{name}")
+@router.get(path="/greeting/{name}", 
+        status_code=200,
+        summary="",
+        operation_id="getting_message",
+        tags=["GET_MESSAGE"]
+)
 def getting_message(name: str = "world", detail = None):
     return {"msg": f"Hello, {name} {',' + detail if detail is not None else ''}!!"}
 
-@app.post("/greeting/")
+@router.post(path="/greeting/",
+        status_code=200,
+        summary="",
+        operation_id="create_message",
+        tags=["POST_MESSAGE"])
 def create_message(request_body: Greeting_request):
     surname = request_body.surname
     detail = request_body.detail
-    return {"msg": f"Hello {request_body.name}{surname if not surname.isspace() else ''}{', ' + detail if not detail.isspace() else ''}".strip()}
+    return {"msg": f"Hello {request_body.name}{surname if not surname.isspace() else ''}{', ' + detail if detail is not None  else ''}".strip()}
 
-@app.put("/greeting")
+@router.put(path="/greeting",
+        status_code=200,
+        summary="",
+        operation_id="modify_message",
+        tags=["PUT_MESSAGE"])
 def modify_message():
     return {"msg": "Put endpoint" }
 
-@app.patch("/greeting")
+@router.patch(path="/greeting",
+        status_code=200,
+        summary="",
+        operation_id="modify_message_partially",
+        tags=["PATCH_MESSAGE"])
 def modify_message_partially():
     return {"msg": "Patch endpoint"}
 
-@app.delete("/greeting")
+@router.delete(path="/greeting",
+        status_code=200,
+        summary="",
+        operation_id="remove_message",
+        tags=["DELETE_MESSAGE"])
 def remove_message():
     return {"msg": "Delete endpoint"}
+
+app = FastAPI(
+    title="First FastAPI",
+    version="1.0.0",
+    summary="First try of FastAPI app from Master",
+    contact={
+        "name": "Raul",
+        "email": "rulox.github@gmail.com"
+    },
+    servers=[
+        {"url": "https://localhost:9080", "description":"Url for local requests"}
+    ],
+    openapi_url="/v1/swagger-ui.html"
+)
+
+app.include_router(router)
