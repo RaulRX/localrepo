@@ -1,8 +1,10 @@
 from fastapi import FastAPI, APIRouter
 from requests.Greeting_request import Greeting_request
-from typing import Optional
+from logger.Logger import Logger
 
 router = APIRouter(prefix="/api/v1")
+
+logger = Logger("main")
 
 @router.get(path="/greeting/{name}", 
         status_code=200,
@@ -13,15 +15,17 @@ router = APIRouter(prefix="/api/v1")
 def getting_message(name: str = "world", detail = None):
     return {"msg": f"Hello, {name} {',' + detail if detail is not None else ''}!!"}
 
-@router.post(path="/greeting/",
+@router.post(path="/greeting",
         status_code=200,
         summary="",
         operation_id="create_message",
         tags=["POST_MESSAGE"])
 def create_message(request_body: Greeting_request):
+    logger.debug("THIS SHOULD NOT BE PRINTED")
     surname = request_body.surname
     detail = request_body.detail
-    return {"msg": f"Hello {request_body.name}{surname if not surname.isspace() else ''}{', ' + detail if detail is not None  else ''}".strip()}
+    logger.info(f"surname {surname} and detail {detail}")
+    return {"msg": f"Hello {request_body.name} {surname if not surname.isspace() else ''}{', ' + detail if detail is not None  else ''}".strip()}
 
 @router.put(path="/greeting",
         status_code=200,
