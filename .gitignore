@@ -9,3 +9,4 @@ CLAUDE.md
 .vscode
 .vscode/*.json
 local_env
+**/*.db
