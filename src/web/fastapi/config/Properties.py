@@ -1,11 +1,7 @@
 from enum import Enum
 import configparser
 import os
-#Local env file purpose
-from dotenv import load_dotenv, dotenv_values
-
-#Local testing purposes
-load_dotenv()
+from pathlib import Path
 
 class Environment(Enum):
     LOCAL="local",
@@ -14,24 +10,29 @@ class Environment(Enum):
     PRO = "pro"
 
     @staticmethod
-    def get_environment_by_name(name: str = "local"):
-        return (member for member in Environment if member.value == name.lower()) or None
-    
+    def get_by_name(name: str = "local"):
+        return next((env for env in Environment if env if env.value == name.lower()), Environment.LOCAL)
+
+    @classmethod
+    def local_environment(cls, environment) -> bool:
+        return cls.LOCAL == environment
+
 class Common:
 
     def __init__(self):
         self.__config = configparser.ConfigParser()
-        
-        if Environment.LOCAL is Environment.get_environment_by_name(os.getenv("environment", Environment.LOCAL.name)):
-            self.__config.read_file(open("application-standalone.ini"))
-        else:
-            self.__config.read_file(open("application-dev.ini"))
+        envvar = os.getenv("environment")
+        if envvar is None:
+            print(f"environment property not found: using LOCAL environment")
+            envvar = Environment.LOCAL.name
 
-    def get_log_level(self):
-        return f"{self.__config['log.level']}"
-    
-    def get_project_environment(self):
-        return f"{self.__config['env']}"
+        print(f"env: {envvar}")
+        config_file = self.__get_configuration_file(envvar)
+        print(f"file: {config_file}")
+        self.__config.read_file(open(config_file))
+
+    def __get_configuration_file(self, environment):
+        return "src/web/fastapi/resources/application-dev.ini" if environment != Environment.LOCAL.name.lower() else "src/web/fastapi/resources/application-standalone.ini"
     
     def get_property(self, name: str):
         if name.isspace():

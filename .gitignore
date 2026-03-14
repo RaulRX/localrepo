@@ -4,3 +4,8 @@ ficheroraiz
 venv/
 .env
 project_v_environment
+.claude
+CLAUDE.md
+.vscode
+.vscode/*.json
+local_env
